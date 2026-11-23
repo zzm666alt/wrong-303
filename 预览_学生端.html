@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <title>学生工作台 · 校园骑行</title>
+  <link rel="stylesheet" href="../static/style.css">
+  <script src="../static/app.js" defer></script>
+</head>
+<body class="with-sidebar">
+
+  <aside class="sidebar">
+    <a class="brand" href="/index" aria-label="校园骑行首页">
+      <span class="brand-mark">⚡</span>
+      <span><strong>校园骑行</strong><small>EV MANAGEMENT</small></span>
+    </a>
+    <div class="side-divider"></div>
+    <p class="side-label">工作空间</p>
+    <nav class="side-nav" aria-label="主菜单">
+      
+        <a href="/student_dashboard" class="active">⌂ <span>我的电动车</span></a>
+        <a href="/student_dashboard#lookup">⌕ <span>车牌查询</span></a>
+      
+      <a href="/change_password" class="">⚙ <span>修改密码</span></a>
+    </nav>
+    <div class="sidebar-bottom">
+      <span class="online-dot"></span> 车辆登记 · 校园服务
+      <div class="side-profile">
+        <div class="avatar">2</div>
+        <div class="user-meta">
+          <strong>20260001</strong>
+          <small>学生账号</small>
+        </div>
+      </div>
+      <form method="post" action="/logout">
+        <input type="hidden" name="csrf_token" value="preview-only">
+        <button class="logout-button" type="submit">退出登录 <span>↗</span></button>
+      </form>
+    </div>
+  </aside>
+
+<div class="page-shell">
+  
+  <header class="topbar">
+    <span class="topbar-crumb">校园骑行 <span class="slash">/</span> 学生工作台</span>
+    <span class="topbar-pill"><span class="online-dot"></span> 学生模式</span>
+  </header>
+  
+  <main class="main-content">
+    
+      
+    
+    
+<section class="page-intro">
+  <div><span class="eyebrow">STUDENT DASHBOARD</span>
+    <h1>我的校园骑行 <span class="wave">✳</span></h1>
+    <p>在这里查看自己名下的电动车，或根据车牌号寻找车主。</p></div>
+  <span class="intro-icon">🛵</span>
+</section>
+<div class="stats-grid">
+  <div class="stat-card"><span class="stat-title">当前绑定车辆</span><div class="stat-number">1<small>辆</small></div><span class="stat-foot">来自校园登记记录</span></div>
+  <div class="stat-card"><span class="stat-title">我的登录账号</span><div class="stat-number text-number">20260001</div><span class="stat-foot">与学号保持一致</span></div>
+  <div class="stat-card stat-message"><span class="stat-title">信息安全</span><div class="stat-message-body">只查看属于你的登记信息</div><span class="stat-foot">个人联系方式由学校统一维护</span></div>
+</div>
+<section class="surface">
+  <div class="section-header"><div><span class="section-kicker">MY VEHICLES</span><h2>我的电动车</h2></div><span class="tag">共 1 辆</span></div>
+  <div class="table-scroll">
+    <table class="data-table"><thead><tr><th>车牌号</th><th>电动车型号</th><th>车主姓名</th><th>联系电话</th><th>辅导员</th></tr></thead>
+      <tbody>
+        
+        <tr><td><strong>校A001</strong></td>
+          <td>雅迪冠能</td><td>张三</td>
+          <td>13800000001</td><td>李老师</td></tr>
+        
+      </tbody>
+    </table>
+  </div>
+  
+</section>
+<section class="surface lookup-section" id="lookup">
+  <div class="section-header"><div><span class="section-kicker">PLATE LOOKUP</span><h2>根据车牌查找车主</h2></div><span class="tag soft">校园便民服务</span></div>
+  <p class="section-help">输入完整车牌号码，可查看车主姓名、联系电话及辅导员。</p>
+  <form method="get" action="/student_dashboard#lookup" class="search-form">
+    <label class="search-input"><span>⌕</span><input name="plate" value="校A003" maxlength="30" placeholder="例如：校A001" aria-label="电动车牌号" required></label>
+    <button class="btn primary" type="submit">查询车主 →</button>
+  </form>
+  
+    
+    
+    <div class="result-panel">
+      <div><span class="result-kicker">查找成功</span><h3>王五</h3><p>车牌：校A003</p></div>
+      <div class="result-detail"><span>联系电话</span><strong>13800000003</strong></div>
+      <div class="result-detail"><span>辅导员</span><strong>王老师</strong></div>
+    </div>
+    
+    
+  
+</section>
+
+  </main>
+  
+  <footer class="page-footer"><span>© 2026 校园电动车管理平台</span><span>信息以学校登记数据库为准</span></footer>
+  
+</div>
+
+<div class="preview-bar">
+  <strong>● 静态预览</strong>
+  <a href="预览_登录页.html">登录页</a>
+  <a href="预览_学生端.html">学生端</a>
+  <a href="预览_管理员端.html">管理员端</a>
+</div>
+<style>
+.preview-bar{position:fixed;z-index:100;bottom:12px;right:12px;background:#fff;padding:9px 12px;box-shadow:0 8px 26px #123f4a26;border:1px solid #d7ebe7;border-radius:10px;display:flex;align-items:center;gap:9px;flex-wrap:wrap;font-size:11px}
+.preview-bar strong{color:#a77536}.preview-bar a{color:#197e76;background:#e9f8f3;padding:4px 8px;border-radius:5px}
+@media(max-width:720px){.preview-bar{left:10px;right:10px;justify-content:center}}
+</style>
+<script>
+document.querySelectorAll("form").forEach(f=>f.addEventListener("submit",e=>{
+  e.preventDefault(); alert("这是界面预览。请安装并运行 Flask 项目才能真正登录和读写 SQL Server。");
+}));
+document.querySelectorAll('a[href^="/"]').forEach(a=>a.addEventListener("click",e=>{
+  e.preventDefault(); alert("静态预览请使用右下角的页面切换链接。");
+}));
+</script>
+
+</body>
+</html>

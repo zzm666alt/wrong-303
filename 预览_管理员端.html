@@ -1,0 +1,250 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <title>车辆管理工作台 · 校园骑行</title>
+  <link rel="stylesheet" href="../static/style.css">
+  <script src="../static/app.js" defer></script>
+</head>
+<body class="with-sidebar">
+
+  <aside class="sidebar">
+    <a class="brand" href="/index" aria-label="校园骑行首页">
+      <span class="brand-mark">⚡</span>
+      <span><strong>校园骑行</strong><small>EV MANAGEMENT</small></span>
+    </a>
+    <div class="side-divider"></div>
+    <p class="side-label">工作空间</p>
+    <nav class="side-nav" aria-label="主菜单">
+      
+        <a href="/admin_dashboard" class="active">▦ <span>信息总览</span></a>
+        <a href="/admin_dashboard#manage">✎ <span>车辆管理</span></a>
+        <a href="/admin_dashboard#reset-password">♙ <span>账号管理</span></a>
+      
+      <a href="/change_password" class="">⚙ <span>修改密码</span></a>
+    </nav>
+    <div class="sidebar-bottom">
+      <span class="online-dot"></span> 车辆登记 · 校园服务
+      <div class="side-profile">
+        <div class="avatar">b</div>
+        <div class="user-meta">
+          <strong>bikeadmin</strong>
+          <small>管理员</small>
+        </div>
+      </div>
+      <form method="post" action="/logout">
+        <input type="hidden" name="csrf_token" value="preview-only">
+        <button class="logout-button" type="submit">退出登录 <span>↗</span></button>
+      </form>
+    </div>
+  </aside>
+
+<div class="page-shell">
+  
+  <header class="topbar">
+    <span class="topbar-crumb">校园骑行 <span class="slash">/</span> 车辆管理工作台</span>
+    <span class="topbar-pill"><span class="online-dot"></span> 管理员模式</span>
+  </header>
+  
+  <main class="main-content">
+    
+      
+    
+    
+<section class="page-intro">
+  <div><span class="eyebrow">ADMIN CONSOLE</span>
+    <h1>校园车辆管理 <span class="wave">✳</span></h1>
+    <p>查找学生记录、办理车辆登记与变更，统一维护校园出行信息。</p></div>
+  <span class="intro-icon">🗂️</span>
+</section>
+<div class="stats-grid">
+  <div class="stat-card"><span class="stat-title">当前结果 · 学生人数</span><div class="stat-number">4<small>人</small></div><span class="stat-foot">根据当前筛选条件统计</span></div>
+  <div class="stat-card"><span class="stat-title">当前结果 · 已登记车辆</span><div class="stat-number">2<small>辆</small></div><span class="stat-foot">学生可登记多辆电动车</span></div>
+  <div class="stat-card stat-message"><span class="stat-title">管理边界</span><div class="stat-message-body">学生档案只读</div><span class="stat-foot">管理员不可更改学生姓名、电话、班级及系别</span></div>
+</div>
+
+<section class="surface" id="owners">
+  <div class="section-header"><div><span class="section-kicker">STUDENT RECORDS</span><h2>学生与车辆信息查询</h2></div><span class="tag">只读学籍信息</span></div>
+  <form method="get" action="/admin_dashboard#owners" class="filter-form">
+    <label>学号<input name="student_id" value="" maxlength="20" placeholder="如 20260001"></label>
+    <label>姓名<input name="owner_name" value="" maxlength="50" placeholder="学生姓名"></label>
+    <label>电话<input name="phone" value="" maxlength="20" placeholder="学生联系电话"></label>
+    <label>辅导员<input name="counselor" value="" maxlength="50" placeholder="辅导员姓名"></label>
+    <button type="submit" class="btn primary">筛选查询</button>
+    <a class="btn outline" href="/admin_dashboard#owners">重置</a>
+  </form>
+  <div class="table-scroll">
+    <table class="data-table">
+      <thead><tr><th>学号</th><th>姓名</th><th>班级</th><th>系别</th><th>辅导员</th><th>联系电话</th><th>车牌号</th><th>型号</th><th>操作</th></tr></thead>
+      <tbody>
+      
+      <tr>
+        <td><span class="mono">20260001</span></td>
+        <td><strong>张三</strong></td><td>软件工程1班</td>
+        <td>计算机系</td><td>李老师</td>
+        <td class="mono">13800000001</td>
+        <td><span class="plate-tag">校A001</span></td>
+        <td>雅迪冠能</td>
+        <td class="actions">
+          
+          <button class="text-action" type="button" data-prefill="update"
+            data-student-id="20260001" data-owner-name="张三"
+            data-phone="13800000001" data-counselor="李老师"
+            data-plate="校A001" data-model="雅迪冠能">编辑</button>
+          <button class="text-action danger" type="button" data-prefill="delete"
+            data-student-id="20260001" data-owner-name="张三"
+            data-phone="13800000001" data-counselor="李老师"
+            data-plate="校A001" data-model="雅迪冠能">删除</button>
+          
+        </td>
+      </tr>
+      
+      <tr>
+        <td><span class="mono">20260002</span></td>
+        <td><strong>李四</strong></td><td>软件工程2班</td>
+        <td>计算机系</td><td>李老师</td>
+        <td class="mono">13800000002</td>
+        <td><span class="plate-tag">无车</span></td>
+        <td>—</td>
+        <td class="actions">
+          <span class="muted">—</span>
+        </td>
+      </tr>
+      
+      <tr>
+        <td><span class="mono">20260003</span></td>
+        <td><strong>王五</strong></td><td>电子信息1班</td>
+        <td>电子工程系</td><td>王老师</td>
+        <td class="mono">13800000003</td>
+        <td><span class="plate-tag">校A003</span></td>
+        <td>小牛UQi</td>
+        <td class="actions">
+          
+          <button class="text-action" type="button" data-prefill="update"
+            data-student-id="20260003" data-owner-name="王五"
+            data-phone="13800000003" data-counselor="王老师"
+            data-plate="校A003" data-model="小牛UQi">编辑</button>
+          <button class="text-action danger" type="button" data-prefill="delete"
+            data-student-id="20260003" data-owner-name="王五"
+            data-phone="13800000003" data-counselor="王老师"
+            data-plate="校A003" data-model="小牛UQi">删除</button>
+          
+        </td>
+      </tr>
+      
+      <tr>
+        <td><span class="mono">20260004</span></td>
+        <td><strong>赵六</strong></td><td>自动化1班</td>
+        <td>机电工程系</td><td>陈老师</td>
+        <td class="mono">13800000004</td>
+        <td><span class="plate-tag">无车</span></td>
+        <td>—</td>
+        <td class="actions">
+          <span class="muted">—</span>
+        </td>
+      </tr>
+      
+      </tbody>
+    </table>
+  </div>
+  <div class="table-note">提示：车主姓名、联系电话、辅导员均来自学生表；管理员不能在此页面修改这些信息。</div>
+</section>
+
+<section class="management-section" id="manage">
+  <div class="section-header no-card"><div><span class="section-kicker">VEHICLE OPERATIONS</span><h2>车辆登记与管理</h2></div><span class="subtle">可添加、修改和删除车牌号与型号</span></div>
+  <div class="management-grid">
+    <details class="surface operation-card" id="add-card" open>
+      <summary><span class="operation-icon add">＋</span><span><strong>添加电动车</strong><small>为已有学生登记车辆</small></span><span class="chevron">⌄</span></summary>
+      <form class="stacked-form" method="post" action="/add_bike" id="form-add">
+        <input type="hidden" name="csrf_token" value="preview-only">
+        <div class="form-grid">
+    <label>车主姓名 <b>*</b><input name="owner_name" maxlength="50" placeholder="与学生信息一致" required></label>
+    <label>学生联系号码 <b>*</b><input name="phone" maxlength="20" placeholder="仅作身份匹配" required></label>
+    <label>辅导员 <b>*</b><input name="counselor" maxlength="50" placeholder="与学生信息一致" required></label>
+    <label>学生学号 <small>选填</small><input name="student_id" maxlength="20" placeholder="同名时建议填写"></label>
+  </div>
+        <div class="form-grid">
+          <label>新车牌号 <b>*</b><input name="plate_number" maxlength="30" placeholder="例如：校A012" required></label>
+          <label>车辆型号 <b>*</b><input name="bike_model" maxlength="100" placeholder="例如：雅迪冠能" required></label>
+        </div>
+        <button class="btn primary" type="submit">确认登记 →</button>
+      </form>
+    </details>
+    <details class="surface operation-card" id="update-card">
+      <summary><span class="operation-icon edit">✎</span><span><strong>修改电动车</strong><small>修改车牌号或车辆型号</small></span><span class="chevron">⌄</span></summary>
+      <form class="stacked-form" method="post" action="/update_bike" id="form-update">
+        <input type="hidden" name="csrf_token" value="preview-only">
+        <div class="form-grid">
+    <label>车主姓名 <b>*</b><input name="owner_name" maxlength="50" placeholder="与学生信息一致" required></label>
+    <label>学生联系号码 <b>*</b><input name="phone" maxlength="20" placeholder="仅作身份匹配" required></label>
+    <label>辅导员 <b>*</b><input name="counselor" maxlength="50" placeholder="与学生信息一致" required></label>
+    <label>学生学号 <small>选填</small><input name="student_id" maxlength="20" placeholder="同名时建议填写"></label>
+  </div>
+        <div class="form-grid">
+          <label>原车牌号 <b>*</b><input name="old_plate" maxlength="30" placeholder="原登记车牌" required></label>
+          <label>新车牌号 <b>*</b><input name="new_plate" maxlength="30" placeholder="修改后的车牌" required></label>
+        </div>
+        <label>新车辆型号 <b>*</b><input name="new_model" maxlength="100" placeholder="修改后的型号" required></label>
+        <button class="btn primary" type="submit">保存车辆变更 →</button>
+      </form>
+    </details>
+    <details class="surface operation-card" id="delete-card">
+      <summary><span class="operation-icon remove">×</span><span><strong>删除电动车</strong><small>注销指定车辆的登记信息</small></span><span class="chevron">⌄</span></summary>
+      <form class="stacked-form" method="post" action="/delete_bike" id="form-delete" data-confirm="确定删除这辆电动车吗？学生档案不会删除。">
+        <input type="hidden" name="csrf_token" value="preview-only">
+        <div class="form-grid">
+    <label>车主姓名 <b>*</b><input name="owner_name" maxlength="50" placeholder="与学生信息一致" required></label>
+    <label>学生联系号码 <b>*</b><input name="phone" maxlength="20" placeholder="仅作身份匹配" required></label>
+    <label>辅导员 <b>*</b><input name="counselor" maxlength="50" placeholder="与学生信息一致" required></label>
+    <label>学生学号 <small>选填</small><input name="student_id" maxlength="20" placeholder="同名时建议填写"></label>
+  </div>
+        <label>要删除的车牌号 <b>*</b><input name="plate_number" maxlength="30" placeholder="输入完整车牌" required></label>
+        <div class="notice danger-notice">此操作只删除电动车记录，不删除学生档案。</div>
+        <button class="btn danger-btn" type="submit">确认删除车辆</button>
+      </form>
+    </details>
+    <section class="surface operation-card reset-card" id="reset-password">
+      <div class="reset-heading"><span class="operation-icon key">⚿</span><span><strong>重置学生登录密码</strong><small>支持指定学生并重新设置初始密码</small></span></div>
+      <form class="stacked-form" method="post" action="/reset_password">
+        <input type="hidden" name="csrf_token" value="preview-only">
+        <div class="form-grid">
+          <label>目标学生学号 <b>*</b><input name="student_id" maxlength="20" placeholder="例如：20260001" required></label>
+          <label>重置后的密码 <b>*</b><input name="new_password" type="text" maxlength="200" minlength="6" value="123456" required></label>
+        </div>
+        <p class="section-help">重置密码后，学生原有登录会话失效；下次登录必须修改密码。</p>
+        <button class="btn outline" type="submit">重置指定学生密码</button>
+      </form>
+    </section>
+  </div>
+</section>
+
+  </main>
+  
+  <footer class="page-footer"><span>© 2026 校园电动车管理平台</span><span>信息以学校登记数据库为准</span></footer>
+  
+</div>
+
+<div class="preview-bar">
+  <strong>● 静态预览</strong>
+  <a href="预览_登录页.html">登录页</a>
+  <a href="预览_学生端.html">学生端</a>
+  <a href="预览_管理员端.html">管理员端</a>
+</div>
+<style>
+.preview-bar{position:fixed;z-index:100;bottom:12px;right:12px;background:#fff;padding:9px 12px;box-shadow:0 8px 26px #123f4a26;border:1px solid #d7ebe7;border-radius:10px;display:flex;align-items:center;gap:9px;flex-wrap:wrap;font-size:11px}
+.preview-bar strong{color:#a77536}.preview-bar a{color:#197e76;background:#e9f8f3;padding:4px 8px;border-radius:5px}
+@media(max-width:720px){.preview-bar{left:10px;right:10px;justify-content:center}}
+</style>
+<script>
+document.querySelectorAll("form").forEach(f=>f.addEventListener("submit",e=>{
+  e.preventDefault(); alert("这是界面预览。请安装并运行 Flask 项目才能真正登录和读写 SQL Server。");
+}));
+document.querySelectorAll('a[href^="/"]').forEach(a=>a.addEventListener("click",e=>{
+  e.preventDefault(); alert("静态预览请使用右下角的页面切换链接。");
+}));
+</script>
+
+</body>
+</html>

@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="login-layout">
+  <section class="login-story" aria-label="平台介绍">
+    <div class="story-top"><span class="story-logo">⚡</span> 校园骑行 <span class="story-version">CAMPUS · 2026</span></div>
+    <div class="story-body">
+      <div class="eyebrow light">SMART CAMPUS / EV SERVICES</div>
+      <h1>让每一次<br>校园骑行，<em>更安心。</em></h1>
+      <p>车辆信息在线查询，登记管理清晰便捷。<br>为校园里的每一段短途出行，建立一份有序的记录。</p>
+      <div class="hero-graphic" aria-hidden="true">
+        <div class="path path-one"></div><div class="path path-two"></div>
+        <span class="circle-orbit orbit-one"></span><span class="circle-orbit orbit-two"></span>
+        <div class="mini-card floating-card"><span>✓</span><div><strong>车辆已登记</strong><small>信息实时关联</small></div></div>
+        <div class="scooter">
+          <div class="scooter-wheel left-wheel"></div><div class="scooter-wheel right-wheel"></div>
+          <div class="scooter-body"></div><div class="scooter-deck"></div>
+          <div class="scooter-neck"></div><div class="scooter-handle"></div><div class="scooter-light"></div>
+        </div>
+      </div>
+    </div>
+    <div class="story-bottom"><span>安全登记</span><i></i><span>便捷查询</span><i></i><span>规范管理</span></div>
+  </section>
+  <section class="login-panel">
+    <div class="login-mobile-brand"><span class="brand-mark">⚡</span> 校园骑行</div>
+    <div class="login-form-wrap">
+      <span class="eyebrow">WELCOME BACK</span>
+      <h2>欢迎回来 👋</h2>
+      <p class="muted">使用学生学号或管理员账号登录</p>
+      <form method="post" action="{{ url_for('login') }}" class="stacked-form login-form">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+        <label>登录账号
+          <input name="username" type="text" placeholder="请输入学号 / 管理员账号" maxlength="32" autocomplete="username" autofocus required>
+        </label>
+        <label>登录密码
+          <div class="password-field">
+            <input name="password" type="password" placeholder="请输入登录密码" maxlength="200" autocomplete="current-password" required>
+            <button type="button" class="reveal-password" aria-label="显示密码">显示</button>
+          </div>
+        </label>
+        <button class="btn primary full" type="submit">登录管理平台 <span>→</span></button>
+      </form>
+      <div class="login-help">
+        <strong>首次登录提示</strong>
+        <p>学生初始账号为学号，密码为 <code>123456</code>。首次登录必须修改密码。</p>
+      </div>
+      <p class="login-tip">管理员使用独立账号登录，系统将自动识别身份与权限。</p>
+    </div>
+    <div class="login-panel-footer">校园电动车管理平台 · 数据库课程设计示例</div>
+  </section>
+</div>
+{% endblock %}

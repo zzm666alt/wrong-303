@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="surface error-page">
+  <span class="error-icon">!</span>
+  <span class="eyebrow">SOMETHING WENT WRONG</span>
+  <h1>{{ title }}</h1>
+  <p>{{ message }}</p>
+  <a class="btn primary" href="{{ url_for('index') }}">返回平台首页 →</a>
+</section>
+{% endblock %}

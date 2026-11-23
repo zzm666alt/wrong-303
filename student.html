@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="page-intro">
+  <div><span class="eyebrow">STUDENT DASHBOARD</span>
+    <h1>我的校园骑行 <span class="wave">✳</span></h1>
+    <p>在这里查看自己名下的电动车，或根据车牌号寻找车主。</p></div>
+  <span class="intro-icon">🛵</span>
+</section>
+<div class="stats-grid">
+  <div class="stat-card"><span class="stat-title">当前绑定车辆</span><div class="stat-number">{{ bike_count }}<small>辆</small></div><span class="stat-foot">来自校园登记记录</span></div>
+  <div class="stat-card"><span class="stat-title">我的登录账号</span><div class="stat-number text-number">{{ auth.username }}</div><span class="stat-foot">与学号保持一致</span></div>
+  <div class="stat-card stat-message"><span class="stat-title">信息安全</span><div class="stat-message-body">只查看属于你的登记信息</div><span class="stat-foot">个人联系方式由学校统一维护</span></div>
+</div>
+<section class="surface">
+  <div class="section-header"><div><span class="section-kicker">MY VEHICLES</span><h2>我的电动车</h2></div><span class="tag">共 {{ bike_count }} 辆</span></div>
+  <div class="table-scroll">
+    <table class="data-table"><thead><tr><th>车牌号</th><th>电动车型号</th><th>车主姓名</th><th>联系电话</th><th>辅导员</th></tr></thead>
+      <tbody>
+        {% for row in bike_rows %}
+        <tr><td><strong>{{ row.PlateNumber or '未登记' }}</strong></td>
+          <td>{{ row.BikeModel or '—' }}</td><td>{{ row.OwnerName }}</td>
+          <td>{{ row.ContactPhone }}</td><td>{{ row.Counselor }}</td></tr>
+        {% else %}
+        <tr><td colspan="5" class="empty-cell">尚无可显示的信息。</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  {% if bike_count == 0 %}<div class="table-note">目前没有登记电动车，车牌号和型号为 NULL。需要登记时请联系电动车管理员。</div>{% endif %}
+</section>
+<section class="surface lookup-section" id="lookup">
+  <div class="section-header"><div><span class="section-kicker">PLATE LOOKUP</span><h2>根据车牌查找车主</h2></div><span class="tag soft">校园便民服务</span></div>
+  <p class="section-help">输入完整车牌号码，可查看车主姓名、联系电话及辅导员。</p>
+  <form method="get" action="{{ url_for('student_dashboard') }}#lookup" class="search-form">
+    <label class="search-input"><span>⌕</span><input name="plate" value="{{ plate }}" maxlength="30" placeholder="例如：校A001" aria-label="电动车牌号" required></label>
+    <button class="btn primary" type="submit">查询车主 →</button>
+  </form>
+  {% if plate %}
+    {% if query_rows %}
+    {% for row in query_rows %}
+    <div class="result-panel">
+      <div><span class="result-kicker">查找成功</span><h3>{{ row.OwnerName }}</h3><p>车牌：{{ plate }}</p></div>
+      <div class="result-detail"><span>联系电话</span><strong>{{ row.ContactPhone }}</strong></div>
+      <div class="result-detail"><span>辅导员</span><strong>{{ row.Counselor }}</strong></div>
+    </div>
+    {% endfor %}
+    {% else %}
+    <div class="empty-state"><span>🔎</span><strong>未查询到该车牌</strong><p>请检查车牌号是否完整，或联系管理员核实登记情况。</p></div>
+    {% endif %}
+  {% endif %}
+</section>
+{% endblock %}

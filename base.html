@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <title>{{ page_title or "校园电动车管理平台" }} · 校园骑行</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <script src="{{ url_for('static', filename='app.js') }}" defer></script>
+</head>
+<body class="{% if auth %}with-sidebar{% else %}guest{% endif %}">
+{% if auth %}
+  <aside class="sidebar">
+    <a class="brand" href="{{ url_for('index') }}" aria-label="校园骑行首页">
+      <span class="brand-mark">⚡</span>
+      <span><strong>校园骑行</strong><small>EV MANAGEMENT</small></span>
+    </a>
+    <div class="side-divider"></div>
+    <p class="side-label">工作空间</p>
+    <nav class="side-nav" aria-label="主菜单">
+      {% if auth.role == 'STUDENT' %}
+        <a href="{{ url_for('student_dashboard') }}" class="{% if request.endpoint == 'student_dashboard' %}active{% endif %}">⌂ <span>我的电动车</span></a>
+        <a href="{{ url_for('student_dashboard') }}#lookup">⌕ <span>车牌查询</span></a>
+      {% else %}
+        <a href="{{ url_for('admin_dashboard') }}" class="{% if request.endpoint == 'admin_dashboard' %}active{% endif %}">▦ <span>信息总览</span></a>
+        <a href="{{ url_for('admin_dashboard') }}#manage">✎ <span>车辆管理</span></a>
+        <a href="{{ url_for('admin_dashboard') }}#reset-password">♙ <span>账号管理</span></a>
+      {% endif %}
+      <a href="{{ url_for('change_password') }}" class="{% if request.endpoint == 'change_password' %}active{% endif %}">⚙ <span>修改密码</span></a>
+    </nav>
+    <div class="sidebar-bottom">
+      <span class="online-dot"></span> 车辆登记 · 校园服务
+      <div class="side-profile">
+        <div class="avatar">{{ auth.username[:1] }}</div>
+        <div class="user-meta">
+          <strong>{{ auth.username }}</strong>
+          <small>{{ "管理员" if auth.role == "ADMIN" else "学生账号" }}</small>
+        </div>
+      </div>
+      <form method="post" action="{{ url_for('logout') }}">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+        <button class="logout-button" type="submit">退出登录 <span>↗</span></button>
+      </form>
+    </div>
+  </aside>
+{% endif %}
+<div class="{% if auth %}page-shell{% else %}guest-shell{% endif %}">
+  {% if auth %}
+  <header class="topbar">
+    <span class="topbar-crumb">校园骑行 <span class="slash">/</span> {{ page_title }}</span>
+    <span class="topbar-pill"><span class="online-dot"></span> {{ "管理员模式" if auth.role == "ADMIN" else "学生模式" }}</span>
+  </header>
+  {% endif %}
+  <main class="{% if auth %}main-content{% else %}guest-content{% endif %}">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        <section class="flash-stack" aria-live="polite">
+          {% for category, msg in messages %}
+          <div class="flash {{ category }}"><span class="flash-dot"></span>{{ msg }}</div>
+          {% endfor %}
+        </section>
+      {% endif %}
+    {% endwith %}
+    {% block content %}{% endblock %}
+  </main>
+  {% if auth %}
+  <footer class="page-footer"><span>© 2026 校园电动车管理平台</span><span>信息以学校登记数据库为准</span></footer>
+  {% endif %}
+</div>
+</body>
+</html>
